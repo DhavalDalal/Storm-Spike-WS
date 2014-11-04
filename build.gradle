@@ -21,7 +21,7 @@ project.ext {
     activemq = 'org.apache.activemq:activemq-all:5.10.0'
     apacheXBean = 'org.apache.xbean:xbean-spring:3.7'
     springJms = 'org.springframework:spring-jms:4.1.1.RELEASE'
-
+    jerseySpring = 'org.glassfish.jersey.ext:jersey-spring3:2.13'
 
     //test-libs
     junit = 'junit:junit:4.8.1'
@@ -44,7 +44,7 @@ repositories {
 dependencies {
     compile(project.ext.jerseyBundle, project.ext.jerseyMultipart, project.ext.groovy,
             project.ext.activemq, project.ext.apacheXBean, project.ext.springJms,
-            project.ext.commonsCli, project.ext.log4j)
+            project.ext.jerseySpring, project.ext.commonsCli, project.ext.log4j)
     testCompile(project.ext.hamcrest, project.ext.junit, project.ext.spock)
 }
 

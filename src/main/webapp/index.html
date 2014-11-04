@@ -2,16 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="lib/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/3.1.1/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="lib/bootstrap-fileinput/css/fileinput.min.css">
+
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+    <script src="lib/jQuery/1.11.0/jquery-1.11.0.js"></script>
+    <script src="lib/bootstrap/3.1.1/js/bootstrap.js"></script>
+    <script src="lib/bootstrap-fileinput/js/fileinput.js"></script>
 </head>
 
 <body>
-Storm Spike WebService
+<div class="container">
+<div class="header">
+    <ul class="nav nav-pills pull-right">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <h3 class="text-muted">Storm Fileupload WebService</h3>
+</div>
 
-<form action="/rest/file/upload" method="post" enctype="multipart/form-data">
-    <p>
-        Select a file : <input type="file" name="file" size="45" />
-    </p>
-    <input type="submit" value="Upload It" />
-</form>
+<div id="main" class="jumbotron">
+<h1>Storm File Upload</h1>
+<p>
+    <form action="/rest/file/upload" method="post" enctype="multipart/form-data">
+        <!--<p>-->
+            <div class="form-group">
+                <input id="input-4" type="file" name="file" multiple="true" class="file" data-show-upload="true">
+            </div>
+        <!--</p>-->
+    </form>
+</p>
+</div>
+<div class="footer">
+    <p>&copy; Storm Spike 2014</p>
+</div>
+</div>
 </body>
 </html>

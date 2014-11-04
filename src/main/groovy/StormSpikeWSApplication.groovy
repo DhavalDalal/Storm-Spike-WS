@@ -10,5 +10,4 @@ public class StormSpikeWSApplication extends ResourceConfig {
         packages('ws')
         register(MultiPartFeature.class)
     }
-
 }
