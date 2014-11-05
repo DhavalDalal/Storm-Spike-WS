@@ -36,7 +36,7 @@ class JmsMessageSender implements MessageSender {
             producer.close()
             session.close()
         } catch (JMSException cause) {
-            log.debug(cause)
+            log.debug(cause.message)
             cause.printStackTrace()
         }
     }
