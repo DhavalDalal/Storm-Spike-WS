@@ -32,10 +32,26 @@
 <p>
     <form action="/rest/file/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <input id="input-4" type="file" name="file" multiple="true" class="file" data-show-upload="true">
+            <input id="file-input-1" type="file" name="file" multiple=true class="file-loading" data-preview-file-type="text" data-preview-class="bg-warning">
         </div>
+        <div id="file-input-1-error" class="help-block"></div>
     </form>
 </p>
+<script>
+    $("#file-input-1").fileinput({
+        showUpload: true,
+        maxFilesNum: 3,
+        allowedFileExtensions: ["xml"],
+        overwriteInitial: true,
+        elErrorContainer: "#file-input-1-error",
+        browseClass: "btn btn-success",
+        browseLabel: "Pick DataFile",
+        removeClass: "btn btn-danger",
+        removeLabel: "Delete",
+        uploadClass: "btn btn-info",
+        uploadLabel: "Upload"
+    });
+</script>
 </div>
 <div class="footer">
     <p>&copy; Storm Spike 2014</p>
