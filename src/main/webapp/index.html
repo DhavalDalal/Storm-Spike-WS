@@ -28,7 +28,15 @@
 </div>
 
 <div id="main" class="jumbotron">
-<h1>Storm File Upload</h1>
+<h2>Rest Endpoints</h2>
+<table class="table table-responsive table-bordered text-left">
+    <tr>
+        <td>/api/file/health</td><td>Health check of this resource</td>
+    </tr>
+    <tr>
+        <td>/api/file/upload</td><td>Post a file to upload.  XML only!</td>
+    </tr>
+</table>
 <p>
     <form action="/api/file/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
