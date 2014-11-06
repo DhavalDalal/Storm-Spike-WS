@@ -4,7 +4,7 @@
         "id": "51b3c425-abcc-e2fc-1562-876c49e2d264",
         "name": "Upload File",
         "description": "",
-        "url": "http://localhost:9000/rest/file/upload",
+        "url": "http://localhost:9000/api/file/upload",
         "method": "POST",
         "headers": "",
         "data": [
@@ -24,7 +24,7 @@
         "id": "7c229ad5-e051-a0dc-35e7-aa6184c8f749",
         "name": "Ping File Resource",
         "description": "",
-        "url": "http://localhost:9000/rest/file/ping",
+        "url": "http://localhost:9000/api/file/health",
         "method": "GET",
         "headers": "",
         "data": [],

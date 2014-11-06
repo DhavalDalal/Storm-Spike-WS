@@ -28,7 +28,7 @@ class FileResource {
     private HttpHeaders headers
 
     @GET
-    @Path("/ping")
+    @Path("/health")
     @Produces(MediaType.APPLICATION_JSON)
     public String ping() {
         "{greet: 'hello from file resource'}"
