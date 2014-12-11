@@ -1,9 +1,10 @@
 package ws
 
 import groovy.util.logging.Slf4j
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition
+import org.glassfish.jersey.media.multipart.FormDataParam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.beans.factory.annotation.Value
 import utils.MessageSender
 
 import javax.ws.rs.Consumes
@@ -14,17 +15,13 @@ import javax.ws.rs.Produces
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.HttpHeaders
 import javax.ws.rs.core.MediaType
-import org.glassfish.jersey.media.multipart.FormDataParam
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition
 
-import javax.ws.rs.core.Response
-
-@Path("/file")
+@Path("/rate")
 @Slf4j
-class FileResource {
+class RateResource {
 
     @Autowired
-    @Qualifier(value = 'jmsMessageSender')
+    @Qualifier(value = 'wsJmsMessageSender')
     private MessageSender sender
 
     @Context
@@ -34,18 +31,23 @@ class FileResource {
     @Path("/health")
     @Produces(MediaType.APPLICATION_JSON)
     public String ping() {
-        "{greet: 'Hello from ${getClass().simpleName}'}"
+        """
+         |{
+         |  "greet": "Hello from ${getClass().simpleName}"
+         |}
+        """.stripMargin()
     }
 
     @POST
-    @Path("/upload")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response upload(
-            @FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileDetail) {
-        sendToQueue(uploadedInputStream.text)
-        String response = "Pushed to Queue... $fileDetail.fileName"
-        return Response.status(200).entity(response).build()
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String newRate(String rateJson) {
+        sendToQueue(rateJson)
+        """
+         |{
+         |  "success": { "Accepted" : $rateJson }
+         |}
+        """.stripMargin()
     }
 
     private void sendToQueue(String message) {

@@ -1,9 +1,13 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:amq="http://activemq.apache.org/schema/core"
+        xmlns:context="http://www.springframework.org/schema/context"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:annotation-config></context:annotation-config>
 
     <amq:queue id="requestQueue" physicalName="req.queue" />
     <!--<amq:queue id="responseQueue" physicalName="res.queue" />-->
@@ -16,4 +20,12 @@
         <constructor-arg ref="jmsConnectionFactory"></constructor-arg>
         <constructor-arg ref="requestQueue"></constructor-arg>
     </bean>
+
+    <amq:queue id="wsRequestQueue" physicalName="ws.req.queue" />
+
+    <bean id="wsJmsMessageSender" class="utils.JmsMessageSender">
+        <constructor-arg ref="jmsConnectionFactory"></constructor-arg>
+        <constructor-arg ref="wsRequestQueue"></constructor-arg>
+    </bean>
+
 </beans>

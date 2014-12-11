@@ -20,45 +20,28 @@
 <div class="container">
 <div class="header">
     <ul class="nav nav-pills pull-right">
-        <li class="active"><a href="index.html">Home</a></li>
-        <li><a href="rates.html">Rates</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="rates.html">Rates</a></li>
     </ul>
-    <h3 class="text-muted">Storm Fileupload WebService</h3>
+    <h3 class="text-muted">Realtime Rates Feeder</h3>
 </div>
 
 <div id="main" class="jumbotron">
 <h2>Rest Endpoints</h2>
 <table class="table table-responsive table-bordered text-left">
     <tr>
-        <td>/api/file/health</td><td>Health check of this resource</td>
+        <td>/api/rate/health</td><td>Health check of this resource</td>
     </tr>
     <tr>
-        <td>/api/file/upload</td><td>Post a file to upload.  XML only!</td>
+        <td>/api/rate</td><td>Post a rate. JSON only!</td>
     </tr>
 </table>
 <p>
-    <form action="/api/file/upload" method="post" enctype="multipart/form-data">
+    <form action="/api/rate" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <input id="file-input-1" type="file" name="file" multiple=true class="file-loading" data-preview-file-type="text" data-preview-class="bg-warning">
         </div>
-        <div id="file-input-1-error" class="help-block"></div>
     </form>
 </p>
-<script>
-    $("#file-input-1").fileinput({
-        showUpload: true,
-        maxFilesNum: 3,
-        allowedFileExtensions: ["xml"],
-        overwriteInitial: true,
-        elErrorContainer: "#file-input-1-error",
-        browseClass: "btn btn-success",
-        browseLabel: "Pick DataFile",
-        removeClass: "btn btn-danger",
-        removeLabel: "Delete",
-        uploadClass: "btn btn-info",
-        uploadLabel: "Upload"
-    });
-</script>
 </div>
 <div class="footer">
     <p>&copy; Storm Spike 2014</p>
