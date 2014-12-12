@@ -27,7 +27,86 @@
 </div>
 
 <div id="main" class="jumbotron">
-<h2>Rest Endpoints</h2>
+    <button class="btn btn-success" onclick="startLoop();">Start Updates</button>
+    <button class="btn btn-danger" onclick="stopLoop();">Stop Updates</button>
+
+    <p>
+<div class="table-responsive">
+<table id="rates-table" class="table table-hover table-bordered" data-url="[{'id': 1, 'rate': 200}, { 'id': 2, 'rate': 100}]" data-toggle="table" data-cache="false" data-height="299">
+    <thead>
+    <tr>
+        <th data-field="id">Hotel</th>
+        <th data-field="rate">Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr id="tr_id_1" class="tr-class-1">
+            <td class="td-class-1">1</td>
+            <td id="td_id_1" >100</td>
+        </tr>
+        <tr id="tr_id_2" class="tr-class-2">
+            <td class="td-class-2">2</td>
+            <td id="td_id_2" >200</td>
+        </tr>
+        <tr id="tr_id_3" class="tr-class-3">
+            <td class="td-class-3">3</td>
+            <td id="td_id_3">300</td>
+        </tr>
+        <tr id="tr_id_4" class="tr-class-4">
+            <td class="td-class-4">4</td>
+            <td id="td_id_4" >400</td>
+        </tr>
+        <tr id="tr_id_5" class="tr-class-5">
+            <td class="td-class-5">5</td>
+            <td id="td_id_5">500</td>
+        </tr>
+    </tbody>
+</table>
+<script>
+    var runEveryMillis = 2000; // expressed in miliseconds
+    var myInterval = 0;
+
+    // STARTS and Resets the loop if any
+    function startLoop() {
+//        if(myInterval > 0)
+//            clearInterval(myInterval);  // stop
+//
+        myInterval = setInterval( "generateRate()", runEveryMillis);  // run
+    }
+
+    function stopLoop() {
+        clearInterval(myInterval);  // stop
+    }
+
+    function generateRate()
+    {
+        var howManyHotels = 5;
+        var maxPrice = 4000.0;
+        var hotelId = Math.floor(Math.random() * howManyHotels) + 1;
+        var hotelRate = Math.floor(Math.random() * maxPrice) + 1;
+        console.log(hotelId);
+        $('#td_id_' + hotelId).text(hotelRate);
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: 'http://localhost:9000/api/rate',
+            data: JSON.stringify({id: hotelId, rate: hotelRate}),
+            success: function(data, textStatus, jqXHR) {
+                console.info("Sent =>", data, textStatus);
+            },
+            dataType: 'json'
+        });
+    }
+
+//    $(function () {
+//        var ratesTable = $('#rates-table');
+//        ratesTable.bootstrapTable();
+//    });
+</script>
+</div>
+</p>
+
+    <h2>Rest Endpoints</h2>
 <table class="table table-responsive table-bordered text-left">
     <tr>
         <td>/api/rate/health</td><td>Health check of this resource</td>
@@ -36,12 +115,6 @@
         <td>/api/rate</td><td>Post a rate. JSON only!</td>
     </tr>
 </table>
-<p>
-    <form action="/api/rate" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-        </div>
-    </form>
-</p>
 </div>
 <div class="footer">
     <p>&copy; Storm Spike 2014</p>
