@@ -42,35 +42,35 @@
     <tbody>
         <tr id="tr_id_1" class="tr-class-1">
             <td class="td-class-1">1</td>
-            <td id="td_id_1" >100</td>
+            <td id="td_id_1" >0</td>
         </tr>
         <tr id="tr_id_2" class="tr-class-2">
             <td class="td-class-2">2</td>
-            <td id="td_id_2" >200</td>
+            <td id="td_id_2" >0</td>
         </tr>
         <tr id="tr_id_3" class="tr-class-3">
             <td class="td-class-3">3</td>
-            <td id="td_id_3">300</td>
+            <td id="td_id_3">0</td>
         </tr>
         <tr id="tr_id_4" class="tr-class-4">
             <td class="td-class-4">4</td>
-            <td id="td_id_4" >400</td>
+            <td id="td_id_4" >0</td>
         </tr>
         <tr id="tr_id_5" class="tr-class-5">
             <td class="td-class-5">5</td>
-            <td id="td_id_5">500</td>
+            <td id="td_id_5">0</td>
         </tr>
     </tbody>
 </table>
 <script>
-    var runEveryMillis = 2000; // expressed in miliseconds
+    var runEveryMillis = 5000; // expressed in miliseconds
     var myInterval = 0;
+    var rateSpectrum = [
+        4000, 4250, 3750, 3500, 4500,
+        7000, 6000, 4025, 5025, 5075
+    ];
 
-    // STARTS and Resets the loop if any
     function startLoop() {
-//        if(myInterval > 0)
-//            clearInterval(myInterval);  // stop
-//
         myInterval = setInterval( "generateRate()", runEveryMillis);  // run
     }
 
@@ -78,24 +78,27 @@
         clearInterval(myInterval);  // stop
     }
 
-    function generateRate()
-    {
-        var howManyHotels = 5;
-        var maxPrice = 4000.0;
-        var hotelId = Math.floor(Math.random() * howManyHotels) + 1;
-        var hotelRate = Math.floor(Math.random() * maxPrice) + 1;
-        console.log(hotelId);
-        $('#td_id_' + hotelId).text(hotelRate);
+    function sendRate(id, rate) {
         $.ajax({
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             url: 'http://localhost:9000/api/rate',
-            data: JSON.stringify({id: hotelId, rate: hotelRate}),
+            data: JSON.stringify({id: id, rate: rate}),
             success: function(data, textStatus, jqXHR) {
                 console.info("Sent =>", data, textStatus);
             },
             dataType: 'json'
         });
+    }
+
+    function generateRate() {
+        var howManyHotels = 5;
+        var rateSpectrumSize = rateSpectrum.length - 1;
+        var hotelId = Math.floor(Math.random() * howManyHotels) + 1;
+        var hotelRate = rateSpectrum[Math.floor(Math.random() * rateSpectrumSize) + 1];
+        $('#td_id_' + hotelId).text(hotelRate);
+        console.info(hotelId, hotelRate);
+        sendRate(hotelId, hotelRate)
     }
 
 //    $(function () {
